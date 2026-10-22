@@ -1,0 +1,27 @@
+[project]
+name = "material-color-utilities"
+version = "0.1.0"
+description = "Python bindings of Rust crate material-colors."
+readme = "README.md"
+authors = [
+    { name = "su226", email = "thesu226@outlook.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.optional-dependencies]
+pil = [
+    "pillow>=13.0.0",
+]
+
+[tool.maturin]
+module-name = "material_color_utilities._core"
+python-packages = ["material_color_utilities"]
+python-source = "src"
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { file = "src/**/*.rs" }, { file = "Cargo.toml" }, { file = "Cargo.lock" }]
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"

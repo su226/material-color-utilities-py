@@ -11,6 +11,8 @@ mod dynamic_color;
 mod hct;
 mod image;
 mod palette;
+mod pixels;
+mod quantize;
 mod scheme;
 mod score;
 mod temperature;
@@ -107,13 +109,48 @@ mod _core {
     use crate::dislike::py_fix_if_disliked;
 
     #[pymodule_export]
+    use crate::dynamic_color::color_spec::PyColorSpec;
+
+    #[pymodule_export]
     use crate::dynamic_color::color_spec::PySpecVersion;
+
+    #[pymodule_export]
+    use crate::dynamic_color::color_spec_2021::PyColorSpec2021;
+
+    #[pymodule_export]
+    use crate::dynamic_color::color_spec_2025::PyColorSpec2025;
+
+    #[pymodule_export]
+    use crate::dynamic_color::color_spec_2026::PyColorSpec2026;
+
+    #[pymodule_export]
+    use crate::dynamic_color::contrast_curve::PyContrastCurve;
+
+    #[pymodule_export]
+    use crate::dynamic_color::dynamic_scheme::PyDynamicScheme;
 
     #[pymodule_export]
     use crate::dynamic_color::dynamic_scheme::PyPlatform;
 
     #[pymodule_export]
+    use crate::dynamic_color::dynamic_scheme::PySchemeResolver;
+
+    #[pymodule_export]
+    use crate::dynamic_color::material_dynamic_colors::PyMaterialDynamicColors;
+
+    #[pymodule_export]
+    use crate::dynamic_color::tone_delta_pair::{
+        PyDeltaConstraint, PyToneDeltaPair, PyTonePolarity,
+    };
+
+    #[pymodule_export]
     use crate::dynamic_color::variant::PyVariant;
+
+    #[pymodule_export]
+    use crate::dynamic_color::PyArgbColor;
+
+    #[pymodule_export]
+    use crate::dynamic_color::PyDynamicColor;
 
     #[pymodule_export]
     use crate::hct::PyHct;
@@ -143,7 +180,67 @@ mod _core {
     use crate::palette::tonal::PyTonalPalette;
 
     #[pymodule_export]
+    use crate::quantize::point_provider_lab::PyPointProviderLab;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer::PyQuantizerResult;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_celebi::py_quantize_celebi_raw;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_celebi::py_quantize_celebi_rgb;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_map::py_quantize_map_raw;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_map::py_quantize_map_rgb;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_wsmeans::py_quantize_wsmeans_raw;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_wsmeans::py_quantize_wsmeans_rgb;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_wu::py_quantize_wu_raw;
+
+    #[pymodule_export]
+    use crate::quantize::quantizer_wu::py_quantize_wu_rgb;
+
+    #[pymodule_export]
     use crate::scheme::PyScheme;
+
+    #[pymodule_export]
+    use crate::scheme::variant::cmf::PySchemeCmf;
+
+    #[pymodule_export]
+    use crate::scheme::variant::content::PySchemeContent;
+
+    #[pymodule_export]
+    use crate::scheme::variant::expressive::PySchemeExpressive;
+
+    #[pymodule_export]
+    use crate::scheme::variant::fidelity::PySchemeFidelity;
+
+    #[pymodule_export]
+    use crate::scheme::variant::fruit_salad::PySchemeFruitSalad;
+
+    #[pymodule_export]
+    use crate::scheme::variant::monochrome::PySchemeMonochrome;
+
+    #[pymodule_export]
+    use crate::scheme::variant::neutral::PySchemeNeutral;
+
+    #[pymodule_export]
+    use crate::scheme::variant::rainbow::PySchemeRainbow;
+
+    #[pymodule_export]
+    use crate::scheme::variant::tonal_spot::PySchemeTonalSpot;
+
+    #[pymodule_export]
+    use crate::scheme::variant::vibrant::PySchemeVibrant;
 
     #[pymodule_export]
     use crate::score::py_score;
@@ -167,7 +264,10 @@ mod _core {
     use crate::image::py_extract_color_raw;
 
     #[pymodule_export]
-    use crate::image::py_extract_color_pil;
+    use crate::image::py_extract_color_rgb;
+
+    #[pymodule_export]
+    use crate::pixels::PyPixelFormat;
 
     #[pymodule_export]
     use crate::utils::math::py_signum;

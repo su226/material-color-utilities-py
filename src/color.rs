@@ -21,6 +21,7 @@ pub fn rgb_from_py(rgb: PyRgb) -> Rgb {
 }
 
 #[inline]
+#[allow(unused)]
 pub fn linear_rgb_to_py(rgb: LinearRgb) -> PyLinearRgb {
     (rgb.red, rgb.green, rgb.blue)
 }

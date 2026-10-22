@@ -2,8 +2,12 @@ use material_colors::scheme::Scheme;
 use pyo3::prelude::*;
 
 use crate::color::{PyRgb, rgb_from_py, rgb_to_py};
+use crate::dynamic_color::dynamic_scheme::PyDynamicScheme;
+
+pub mod variant;
 
 #[pyclass(name = "Scheme")]
+#[derive(Clone, Copy)]
 pub struct PyScheme(pub Scheme);
 
 #[pymethods]
@@ -111,6 +115,12 @@ impl PyScheme {
             rgb_from_py(shadow),
             rgb_from_py(scrim),
         ))
+    }
+
+    /// Converts a dynamic scheme into a plain 49-color scheme.
+    #[staticmethod]
+    fn from_dynamic_scheme(scheme: &PyDynamicScheme) -> Self {
+        Self(Scheme::from(scheme.0.clone()))
     }
 
     #[getter]

@@ -8,6 +8,7 @@ pub mod solver;
 pub mod viewing_conditions;
 
 #[pyclass(name = "Hct")]
+#[derive(Clone, Copy)]
 pub struct PyHct(pub Hct);
 
 #[pymethods]
@@ -52,6 +53,8 @@ impl PyHct {
         self.0.set_tone(tone);
     }
 
+    // PyO3 can only use &self or &mut self
+    #[allow(clippy::wrong_self_convention)]
     fn to_rgb(&self) -> PyRgb {
         rgb_to_py(Rgb::from(self.0))
     }

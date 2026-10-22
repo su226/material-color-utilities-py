@@ -9,6 +9,7 @@ use crate::{
 };
 
 #[pyclass(name = "TonalPalette")]
+#[derive(Clone, Copy)]
 pub struct PyTonalPalette(pub TonalPalette);
 
 #[pymethods]
